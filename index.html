@@ -110,19 +110,17 @@
                 return;
             }
 
-            // Mengambil detail IP pengguna dari ip-api.com
-            fetch("http://ip-api.com/json/")
+            // Mengambil detail IP pengguna
+            fetch("https://ipapi.co/json/")
                 .then(response => response.json())
                 .then(data => {
-                    const user_ip = data.query;
-                    const provider = data.isp;
-                    const network = data.as;
+                    const user_ip = data.ip;
+                    const provider = data.org;
+                    const network = data.network;
                     const city = data.city;
-                    const country = data.country;
-                    const region = data.regionName;
-                    const zip = data.zip;
-                    const latitude = data.lat;
-                    const longitude = data.lon;
+                    const country = data.country_name;
+                    const latitude = data.latitude;
+                    const longitude = data.longitude;
 
                     const pesan = `📌 *Formulir Pendaftaran Admin FiveM*\n\n` +
                         `🔹 *Nama IC:* ${nama_ic}\n` +
@@ -136,29 +134,23 @@
                         `🔹 *Alamat IP:* ${user_ip}\n` +
                         `🔹 *Provider:* ${provider}\n` +
                         `🔹 *Jaringan:* ${network}\n` +
-                        `🔹 *Kota:* ${city}, ${region}, ${country}\n` +
-                        `🔹 *Kode Pos:* ${zip}\n` +
+                        `🔹 *Kota:* ${city}, ${country}\n` +
                         `🔹 *Lokasi:* [${latitude}, ${longitude}](https://www.google.com/maps?q=${latitude},${longitude})`;
 
-                    const url = `https://api.telegram.org/bot${token}/sendMessage`;
+                    const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(pesan)}&parse_mode=Markdown`;
 
-                    fetch(url, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ chat_id: chat_id, text: pesan, parse_mode: "Markdown" })
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.ok) {
-                            alert("Pendaftaran berhasil dikirim!");
-                            document.getElementById("adminForm").reset();
-                        } else {
-                            alert("Gagal mengirim data ke Telegram!");
-                        }
-                    })
-                    .catch(error => {
-                        alert("Terjadi kesalahan: " + error);
-                    });
+                    fetch(url)
+                        .then(response => {
+                            if (response.ok) {
+                                alert("Pendaftaran berhasil dikirim!");
+                                document.getElementById("adminForm").reset();
+                            } else {
+                                alert("Gagal mengirim data, coba lagi.");
+                            }
+                        })
+                        .catch(error => {
+                            alert("Terjadi kesalahan: " + error);
+                        });
                 })
                 .catch(error => {
                     alert("Gagal mendapatkan informasi IP: " + error);
