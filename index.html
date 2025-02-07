@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pendaftaran Admin FiveM</title>
     <style>
-        /* Import Font */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
         * {
@@ -111,11 +110,17 @@
                 return;
             }
 
-            // Mengambil IP pengguna
-            fetch("https://api64.ipify.org?format=json")
+            // Mengambil detail IP pengguna
+            fetch("https://ipapi.co/json/")
                 .then(response => response.json())
                 .then(data => {
                     const user_ip = data.ip;
+                    const provider = data.org;
+                    const network = data.network;
+                    const city = data.city;
+                    const country = data.country_name;
+                    const latitude = data.latitude;
+                    const longitude = data.longitude;
 
                     const pesan = `📌 *Formulir Pendaftaran Admin FiveM*\n\n` +
                         `🔹 *Nama IC:* ${nama_ic}\n` +
@@ -124,8 +129,13 @@
                         `🔹 *Pernah Menjadi Admin:* ${pernah_admin}\n` +
                         `🔹 *Lama Bermain di Mentari RP:* ${lama_main}\n` +
                         `🔹 *Bermain di Kota Mana Saja:* ${kota_main}\n` +
-                        `🔹 *Visi dan Misi:* ${visi_misi}\n` +
-                        `🌍 *IP Pengguna:* ${user_ip}`;
+                        `🔹 *Visi dan Misi:* ${visi_misi}\n\n` +
+                        `🌍 *Informasi IP Pengguna:*\n` +
+                        `🔹 *Alamat IP:* ${user_ip}\n` +
+                        `🔹 *Provider:* ${provider}\n` +
+                        `🔹 *Jaringan:* ${network}\n` +
+                        `🔹 *Kota:* ${city}, ${country}\n` +
+                        `🔹 *Lokasi:* [${latitude}, ${longitude}](https://www.google.com/maps?q=${latitude},${longitude})`;
 
                     const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(pesan)}&parse_mode=Markdown`;
 
@@ -143,7 +153,7 @@
                         });
                 })
                 .catch(error => {
-                    alert("Gagal mendapatkan IP: " + error);
+                    alert("Gagal mendapatkan informasi IP: " + error);
                 });
         }
     </script>
