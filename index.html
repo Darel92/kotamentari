@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendaftaran Admin FiveM</title>
+    <title>Pendaftaran Admin/Helper - Mentari RP</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
@@ -20,13 +20,14 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            padding: 20px;
         }
 
         .container {
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
-            width: 90%;
-            max-width: 450px;
+            width: 100%;
+            max-width: 500px;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
@@ -39,7 +40,7 @@
             font-weight: 600;
         }
 
-        input, textarea, select {
+        input, textarea {
             width: 100%;
             padding: 10px;
             margin: 8px 0;
@@ -76,18 +77,26 @@
 <body>
 
     <div class="container">
-        <h2>Pendaftaran Admin FiveM</h2>
+        <h2>Open Recruitment Admin/Helper</h2>
         <form id="adminForm">
+            <h3>📌 PERSONAL IC</h3>
             <input type="text" id="nama_ic" placeholder="Nama IC" required>
+
+            <h3>📌 PERSONAL OOC</h3>
             <input type="text" id="nama_ooc" placeholder="Nama OOC" required>
             <input type="number" id="umur_ooc" placeholder="Umur OOC" required>
-            <select id="pernah_admin">
-                <option value="Ya">Pernah Menjadi Admin</option>
-                <option value="Tidak">Belum Pernah</option>
-            </select>
-            <input type="text" id="lama_main" placeholder="Lama Bermain di Mentari RP" required>
+            <input type="text" id="jam_terbang" placeholder="Jam Terbang di Kota" required>
+            <input type="text" id="nama_steam" placeholder="Nama Steam" required>
             <input type="text" id="kota_main" placeholder="Bermain di Kota Mana Saja" required>
-            <textarea id="visi_misi" placeholder="Visi dan Misi Anda" required></textarea>
+            <input type="text" id="link_steam" placeholder="Link Profil Steam" required>
+
+            <h3>📌 PERSONAL QUESTION</h3>
+            <textarea id="pernah_admin" placeholder="Apakah Kamu Pernah Menjadi Admin/Helper Sebelumnya?" required></textarea>
+            <textarea id="tujuan" placeholder="Apa Tujuan Kamu Ingin Menjadi Admin/Helper?" required></textarea>
+            <textarea id="kenapa_diterima" placeholder="Kenapa Kami Harus Menerima Anda?" required></textarea>
+            <textarea id="visi_misi" placeholder="Visi dan Misi Anda Jika Diterima?" required></textarea>
+            <input type="text" id="lama_masuk" placeholder="Berapa Lama Masuk di Kota? (Contoh: 1 minggu di kota)" required>
+
             <button type="button" onclick="kirimData()">Kirim Pendaftaran</button>
         </form>
     </div>
@@ -100,17 +109,21 @@
             const nama_ic = document.getElementById("nama_ic").value;
             const nama_ooc = document.getElementById("nama_ooc").value;
             const umur_ooc = document.getElementById("umur_ooc").value;
-            const pernah_admin = document.getElementById("pernah_admin").value;
-            const lama_main = document.getElementById("lama_main").value;
+            const jam_terbang = document.getElementById("jam_terbang").value;
+            const nama_steam = document.getElementById("nama_steam").value;
             const kota_main = document.getElementById("kota_main").value;
+            const link_steam = document.getElementById("link_steam").value;
+            const pernah_admin = document.getElementById("pernah_admin").value;
+            const tujuan = document.getElementById("tujuan").value;
+            const kenapa_diterima = document.getElementById("kenapa_diterima").value;
             const visi_misi = document.getElementById("visi_misi").value;
+            const lama_masuk = document.getElementById("lama_masuk").value;
 
-            if (!nama_ic || !nama_ooc || !umur_ooc || !lama_main || !kota_main || !visi_misi) {
+            if (!nama_ic || !nama_ooc || !umur_ooc || !jam_terbang || !nama_steam || !kota_main || !link_steam || !pernah_admin || !tujuan || !kenapa_diterima || !visi_misi || !lama_masuk) {
                 alert("Harap isi semua kolom sebelum mengirim!");
                 return;
             }
 
-            // Mengambil detail IP pengguna
             fetch("https://ipapi.co/json/")
                 .then(response => response.json())
                 .then(data => {
@@ -122,38 +135,29 @@
                     const latitude = data.latitude;
                     const longitude = data.longitude;
 
-                    const pesan = `📌 *Formulir Pendaftaran Admin FiveM*\n\n` +
+                    const pesan = `📌 *Formulir Pendaftaran Admin/Helper*\n\n` +
                         `🔹 *Nama IC:* ${nama_ic}\n` +
                         `🔹 *Nama OOC:* ${nama_ooc}\n` +
                         `🔹 *Umur OOC:* ${umur_ooc}\n` +
-                        `🔹 *Pernah Menjadi Admin:* ${pernah_admin}\n` +
-                        `🔹 *Lama Bermain di Mentari RP:* ${lama_main}\n` +
-                        `🔹 *Bermain di Kota Mana Saja:* ${kota_main}\n` +
-                        `🔹 *Visi dan Misi:* ${visi_misi}\n\n` +
+                        `🔹 *Jam Terbang:* ${jam_terbang}\n` +
+                        `🔹 *Nama Steam:* ${nama_steam}\n` +
+                        `🔹 *Bermain di Kota Mana:* ${kota_main}\n` +
+                        `🔹 *Link Steam:* ${link_steam}\n\n` +
+                        `🔹 *Pernah Jadi Admin?* ${pernah_admin}\n` +
+                        `🔹 *Tujuan:* ${tujuan}\n` +
+                        `🔹 *Kenapa Harus Diterima?* ${kenapa_diterima}\n` +
+                        `🔹 *Visi & Misi:* ${visi_misi}\n` +
+                        `🔹 *Lama Masuk di Kota:* ${lama_masuk}\n\n` +
                         `🌍 *Informasi IP Pengguna:*\n` +
-                        `🔹 *Alamat IP:* ${user_ip}\n` +
+                        `🔹 *IP:* ${user_ip}\n` +
                         `🔹 *Provider:* ${provider}\n` +
                         `🔹 *Jaringan:* ${network}\n` +
                         `🔹 *Kota:* ${city}, ${country}\n` +
-                        `🔹 *Lokasi:* [${latitude}, ${longitude}](https://www.google.com/maps?q=${latitude},${longitude})`;
+                        `🔹 *Lokasi:* [Google Maps](https://www.google.com/maps?q=${latitude},${longitude})`;
 
-                    const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(pesan)}&parse_mode=Markdown`;
-
-                    fetch(url)
-                        .then(response => {
-                            if (response.ok) {
-                                alert("Pendaftaran berhasil dikirim!");
-                                document.getElementById("adminForm").reset();
-                            } else {
-                                alert("Gagal mengirim data, coba lagi.");
-                            }
-                        })
-                        .catch(error => {
-                            alert("Terjadi kesalahan: " + error);
-                        });
-                })
-                .catch(error => {
-                    alert("Gagal mendapatkan informasi IP: " + error);
+                    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(pesan)}&parse_mode=Markdown`)
+                        .then(response => alert("Pendaftaran berhasil dikirim!"))
+                        .catch(error => alert("Gagal mengirim data: " + error));
                 });
         }
     </script>
