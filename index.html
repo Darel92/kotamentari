@@ -64,8 +64,8 @@
     <script>
         function login() {
             const token = document.getElementById("tokenInput").value;
-            const storedUserToken = localStorage.getItem("userToken") || "FxZkuGvjUtxaj";
-            const storedAdminToken = localStorage.getItem("adminToken") || "HgfGVcxSa";
+            const storedUserToken = "FxZkuGvjUtxaj"; // Token user diperbaiki
+            const storedAdminToken = "HgfGVcxSa"; // Token admin tetap sama
 
             if (token === storedUserToken) {
                 document.getElementById("loginContainer").classList.add("hidden");
@@ -86,10 +86,7 @@
 
         function resetToken() {
             const newUserToken = generateToken();
-            const newAdminToken = generateToken();
-
-            localStorage.setItem("userToken", newUserToken);
-            localStorage.setItem("adminToken", newAdminToken);
+            const newAdminToken = "HgfGVcxSa"; // Admin token tetap sama
 
             alert(`Token baru:\nUser Token: ${newUserToken}\nAdmin Token: ${newAdminToken}`);
         }
