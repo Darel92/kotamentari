@@ -86,16 +86,13 @@
             <input type="text" id="nama_ooc" placeholder="Nama OOC" required>
             <input type="number" id="umur_ooc" placeholder="Umur OOC" required>
             <input type="text" id="jam_terbang" placeholder="Jam Terbang di Kota" required>
-            <input type="text" id="nama_steam" placeholder="Nama Steam" required>
             <input type="text" id="kota_main" placeholder="Bermain di Kota Mana Saja" required>
-            <input type="text" id="link_steam" placeholder="Link Profil Steam" required>
 
             <h3>📌 PERSONAL QUESTION</h3>
             <textarea id="pernah_admin" placeholder="Apakah Kamu Pernah Menjadi Admin/Helper Sebelumnya?" required></textarea>
             <textarea id="tujuan" placeholder="Apa Tujuan Kamu Ingin Menjadi Admin/Helper?" required></textarea>
             <textarea id="kenapa_diterima" placeholder="Kenapa Kami Harus Menerima Anda?" required></textarea>
             <textarea id="visi_misi" placeholder="Visi dan Misi Anda Jika Diterima?" required></textarea>
-            <input type="text" id="lama_masuk" placeholder="Berapa Lama Masuk di Kota? (Contoh: 1 minggu di kota)" required>
 
             <button type="button" onclick="kirimData()">Kirim Pendaftaran</button>
         </form>
@@ -110,16 +107,13 @@
             const nama_ooc = document.getElementById("nama_ooc").value;
             const umur_ooc = document.getElementById("umur_ooc").value;
             const jam_terbang = document.getElementById("jam_terbang").value;
-            const nama_steam = document.getElementById("nama_steam").value;
             const kota_main = document.getElementById("kota_main").value;
-            const link_steam = document.getElementById("link_steam").value;
             const pernah_admin = document.getElementById("pernah_admin").value;
             const tujuan = document.getElementById("tujuan").value;
             const kenapa_diterima = document.getElementById("kenapa_diterima").value;
             const visi_misi = document.getElementById("visi_misi").value;
-            const lama_masuk = document.getElementById("lama_masuk").value;
 
-            if (!nama_ic || !nama_ooc || !umur_ooc || !jam_terbang || !nama_steam || !kota_main || !link_steam || !pernah_admin || !tujuan || !kenapa_diterima || !visi_misi || !lama_masuk) {
+            if (!nama_ic || !nama_ooc || !umur_ooc || !jam_terbang || !kota_main || !pernah_admin || !tujuan || !kenapa_diterima || !visi_misi) {
                 alert("Harap isi semua kolom sebelum mengirim!");
                 return;
             }
@@ -140,14 +134,11 @@
                         `🔹 *Nama OOC:* ${nama_ooc}\n` +
                         `🔹 *Umur OOC:* ${umur_ooc}\n` +
                         `🔹 *Jam Terbang:* ${jam_terbang}\n` +
-                        `🔹 *Nama Steam:* ${nama_steam}\n` +
-                        `🔹 *Bermain di Kota Mana:* ${kota_main}\n` +
-                        `🔹 *Link Steam:* ${link_steam}\n\n` +
+                        `🔹 *Bermain di Kota Mana:* ${kota_main}\n\n` +
                         `🔹 *Pernah Jadi Admin?* ${pernah_admin}\n` +
                         `🔹 *Tujuan:* ${tujuan}\n` +
                         `🔹 *Kenapa Harus Diterima?* ${kenapa_diterima}\n` +
-                        `🔹 *Visi & Misi:* ${visi_misi}\n` +
-                        `🔹 *Lama Masuk di Kota:* ${lama_masuk}\n\n` +
+                        `🔹 *Visi & Misi:* ${visi_misi}\n\n` +
                         `🌍 *Informasi IP Pengguna:*\n` +
                         `🔹 *IP:* ${user_ip}\n` +
                         `🔹 *Provider:* ${provider}\n` +
